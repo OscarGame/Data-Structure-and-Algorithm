@@ -1,0 +1,64 @@
+#ifndef _QUEUE_POINTER_H_
+#define _QUEUE_POINTER_H_
+
+#include "index.h"
+
+struct celltype {
+	elementtype element;
+	celltype *next;
+};
+
+struct QUEUE {
+	celltype *front;
+	celltype *rear;
+};
+
+void MAKENULL( QUEUE &Q )
+{
+	Q.front = new celltype ;
+	Q.front->next = NULL ;
+	Q.rear = Q.front ;
+}
+
+boolean EMPTY( QUEUE &Q )
+{ 
+	if ( Q.front == Q.rear )
+		return TRUE ;
+	else
+		return FALSE ;
+}
+
+celltype *FRONT(QUEUE Q)
+{
+	if(Q.front==Q.rear)
+		return NULL;
+	else
+		return Q.front->next;
+}
+
+void ENQUEUE ( elementtype x, QUEUE &Q )
+{ 
+	Q.rear->next = new celltype ;
+	Q.rear = Q.rear->next ;
+	Q.rear->element = x ;
+	Q.rear->next = NULL ;
+}
+
+void DEQUEUE ( QUEUE &Q )
+{ 
+	celltype *temp ;
+	if ( EMPTY( Q ) )
+		error ("╤сапн╙©у") ;
+	else { 
+		temp = Q.front->next ;
+		Q.front->next = temp->next ;
+		delete temp ;
+	
+		if ( Q.front->next == NULL )
+			Q.rear = Q.front ; 
+	}
+}
+
+
+
+#endif

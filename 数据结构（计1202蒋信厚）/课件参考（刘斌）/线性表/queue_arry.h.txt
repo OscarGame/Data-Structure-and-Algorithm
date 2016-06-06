@@ -1,0 +1,64 @@
+#ifndef _QUEUE_ARRAY_H_
+#define _QUEUE_ARRAY_H_
+
+#include "index.h"
+
+#define maxlength 20
+
+struct QUEUE {
+    elementtype elements [ maxlength ] ;
+    int front;
+    int rear;
+};
+
+int addone( int i )
+{
+	return ( ( i + 1 ) % maxlength ) ;
+}
+
+void MakeNull ( QUEUE &Q)
+{ 
+	Q.front = 0 ;
+	Q.rear = maxlength - 1;
+}
+
+boolean Empty( QUEUE Q )
+{ 
+	if ( addone(Q.rear) == Q.front )
+		return TRUE ;
+	else
+		return FALSE ;
+}
+
+elementtype Front( QUEUE Q )
+{ 
+	if ( Empty( Q ) )
+		return NULL ;
+	else
+		return (Q.elements[ Q.front ] );
+}
+
+void EnQueue ( elementtype x, QUEUE &Q )
+{ 
+	if ( addone ( addone( Q.rear ) ) ==Q.front )
+		error ( "队列已满") ;
+	else {
+		Q.rear = addone ( Q.rear ) ;
+		Q.elements[ Q.rear ] = x ;
+	}
+}
+
+void DeQueue ( QUEUE &Q )
+{ 
+	if ( Empty ( Q ) )
+		error ( "队列空") ;
+	else 
+		Q.front = addone ( Q.front ) ;
+} ;
+
+
+#endif
+
+
+
+
